@@ -1,0 +1,38 @@
+{
+  "name": "scryfall-sdk-javascript",
+  "version": "1.0.0",
+  "description": "JavaScript SDK to work with Magic the Gathering API at scryfall.com",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuttermanA/scryfall-sdk-javascript.git"
+  },
+  "keywords": [
+    "SDK",
+    "TypeScript"
+  ],
+  "author": "Alexander Gutterman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GuttermanA/scryfall-sdk-javascript/issues"
+  },
+  "homepage": "https://github.com/GuttermanA/scryfall-sdk-javascript#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "babel-jest": "^24.9.0",
+    "jest": "^24.9.0"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.4.4"
+  }
+}
