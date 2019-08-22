@@ -16,8 +16,7 @@
     "url": "git+https://github.com/GuttermanA/scryfall-sdk-javascript.git"
   },
   "keywords": [
-    "SDK",
-    "TypeScript"
+    "SDK"
   ],
   "author": "Alexander Gutterman",
   "license": "MIT",

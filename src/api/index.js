@@ -12,13 +12,13 @@ const handleServerResponse = response => {
 
 // const parseResponse = response => response.json();
 
-export const fetchApi = async (
-  endPoint: string,
-  payload: object = {},
-  method: string = "get",
-  headers: object = {}
+export const fetchApi = (
+  endPoint,
+  payload = {},
+  method = "GET",
+  headers = {}
 ) => {
-  const options: RequestInit = {
+  const options = {
     method,
     body: "",
     headers: {

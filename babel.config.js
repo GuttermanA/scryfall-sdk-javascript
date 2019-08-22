@@ -1,6 +1,7 @@
 const presets = [
   [
     "@babel/env",
+    "@babel/preset-typescript",
     {
       targets: {
         edge: "17",
