@@ -1,31 +1,34 @@
 import { ROOT, defaultHeaders } from "./config";
 
 const handleServerResponse = response => {
-  // debugger;
-  if (!response.ok) {
-    // debugger;
-    throw new Error(response.status);
-  } else {
-    return response;
-  }
+  // console.log(response);
+  // if (!response.ok) {
+  //   // debugger;
+  //   throw new Error(response.status);
+  // } else {
+  //   return response;
+  // }
+  return response;
 };
 
 // const parseResponse = response => response.json();
 
-export const fetchApi = (
+export const fetchApi = async ({
   endPoint,
   payload = {},
   method = "GET",
-  headers = {}
-) => {
+  headers = {},
+  body
+}) => {
   const options = {
     method,
-    body: "",
+    body,
     headers: {
       ...headers,
       ...defaultHeaders
     }
   };
+
   if (Object.keys(payload).length > 0) {
     options.body = JSON.stringify(payload);
   }

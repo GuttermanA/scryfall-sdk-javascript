@@ -9,7 +9,11 @@
   "jest": {
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
-    }
+    },
+    "automock": false,
+    "setupFiles": [
+      "./setupJest.js"
+    ]
   },
   "repository": {
     "type": "git",
@@ -32,6 +36,7 @@
     "jest": "^24.9.0"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.4.4"
+    "@babel/polyfill": "^7.4.4",
+    "node-fetch": "^2.6.0"
   }
 }
