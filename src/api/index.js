@@ -1,17 +1,28 @@
-import { ROOT, defaultHeaders } from "./config";
+import { ROOT, defaultHeaders, timeoutMS } from "./config";
+import { timeout } from "../utils";
 
-const handleServerResponse = response => {
-  // console.log(response);
-  // if (!response.ok) {
-  //   // debugger;
-  //   throw new Error(response.status);
-  // } else {
-  //   return response;
-  // }
-  return response;
+const handleServerResponse = async response => {
+  const json = await parseResponse(response);
+  const { object, code, status, details } = json;
+  if (object === "error") {
+    throw new Error(`${status} - ${code}: ${details}`);
+  } else {
+    return json;
+  }
 };
 
-// const parseResponse = response => response.json();
+const parseResponse = async response => {
+  try {
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      throw new SyntaxError(error);
+    } else {
+      throw new Error(error);
+    }
+  }
+};
 
 export const fetchApi = async ({
   endPoint,
@@ -24,14 +35,16 @@ export const fetchApi = async ({
     method,
     body,
     headers: {
-      ...headers,
-      ...defaultHeaders
+      ...defaultHeaders,
+      ...headers
     }
   };
 
   if (Object.keys(payload).length > 0) {
     options.body = JSON.stringify(payload);
   }
+
+  await timeout(timeoutMS);
 
   return fetch(`${ROOT}${endPoint}`, options).then(handleServerResponse);
 };
