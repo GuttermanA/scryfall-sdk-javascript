@@ -1,4 +1,5 @@
 import { fetchApi } from "../src/api";
+import { queryBuilder, isObjectWithKeys } from "../src/utils";
 
 describe("api adapter", () => {
   describe("#fetchApi()", () => {
@@ -9,18 +10,51 @@ describe("api adapter", () => {
       );
     });
 
-    test("Reads valid json", async () => {
-      const params = {
-        endPoint: `/cards/random`
-      };
-      await expect(Promise.resolve(fetchApi(params))).resolves;
+    describe("JSON", () => {
+      test("Resolves valid when requesting JSON", async () => {
+        const params = {
+          endPoint: `/cards/random`
+        };
+        await expect(Promise.resolve(fetchApi(params))).resolves;
+      });
+
+      test("Return a valid JSON Object", async () => {
+        const params = {
+          endPoint: `/cards/random`
+        };
+        const data = await fetchApi(params);
+        expect(isObjectWithKeys(data)).toBeTruthy();
+      });
     });
 
-    test("Reads valid text", async () => {
-      const params = {
-        endPoint: `/cards/random`
-      };
-      await expect(Promise.resolve(fetchApi(params))).resolves;
+    describe("Text", () => {
+      test("Resolves valid when requesting text", async () => {
+        const query = queryBuilder({}, { format: "text" });
+        const params = {
+          endPoint: `/cards/random${query}`
+        };
+        await expect(typeof Promise.resolve(fetchApi(params))).resolves;
+      });
+
+      test("Returns a String", async () => {
+        const query = queryBuilder({}, { format: "text" });
+        const params = {
+          endPoint: `/cards/random${query}`
+        };
+        const data = await fetchApi(params);
+
+        expect(typeof data).toBe("string");
+      });
+    });
+
+    describe("CSV", () => {
+      test("Resolves valid when requesting text", async () => {
+        const query = queryBuilder({ format: "csv" });
+        const params = {
+          endPoint: `/cards/search${query}`
+        };
+        await expect(typeof Promise.resolve(fetchApi(params))).resolves;
+      });
     });
   });
 });

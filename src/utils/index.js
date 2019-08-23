@@ -2,10 +2,10 @@ export const timeout = ms => {
   return new Promise(resolve => setTimeout(resolve, ms));
 };
 
-export const queryBuilder = queryObject => {
+export const queryBuilder = ({ query = {}, options = {} }) => {
   const params = new URLSearchParams("");
 
-  if (typeof queryObject === "object" && Object.keys(queryObject).length > 0) {
+  if (isObjectWithKeys(options)) {
     for (const name in queryObject) {
       params.append(name, queryObject[name]);
     }
@@ -13,8 +13,14 @@ export const queryBuilder = queryObject => {
     throw new Error("Input must be key value pair");
   }
 
+  if (isObjectWithKeys(query)) {
+    params.append("")
+  }
+
   return "?".concat(params.toString());
 };
+
+export const searchStringBuilder = ({ name, color, identity, type, oracle, mana, power, toughness, loyalty, is, include, rarity, in, set, number, block, st, format, usd, tix, eur, art, flavor, watermark, boarder, frame, game, not, language })
 
 export const readContentType = headers => {
   return headers.get("content-type");
