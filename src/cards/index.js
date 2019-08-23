@@ -4,38 +4,38 @@ const subDomain = "/cards";
 
 export default class Cards {
   // /cards
-  all() {}
+  static all() {}
 
   // /cards/search
-  search() {}
+  static search() {}
 
   // /cards/named
-  named() {}
+  static named() {}
 
   // /cards/autocomplete
-  autocomplete() {}
+  static autocomplete() {}
 
   // /cards/random
-  random() {}
+  static random() {}
 
   // /cards/collection
-  collection() {}
+  static collection() {}
 
   // /cards/:code/:number(/:lang)
-  singleCard() {}
+  static singleCard() {}
 
   // /cards/multiverse/:id
-  singleCard() {}
+  static singleCard() {}
 
   // /cards/mtgo/:id
-  singleCard() {}
+  static singleCard() {}
 
   // /cards/arena/:id
-  singleCard() {}
+  static singleCard() {}
 
   // /cards/tcgplayer/:id
-  singleCard() {}
+  static singleCard() {}
 
   // /cards/scryfall/:id
-  singleCard() {}
+  static singleCard() {}
 }

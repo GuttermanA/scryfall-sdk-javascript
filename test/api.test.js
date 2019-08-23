@@ -1,5 +1,4 @@
 import { fetchApi } from "../src/api";
-import { queryBuilder } from "../src/utils";
 
 describe("api adapter", () => {
   describe("#fetchApi()", () => {
@@ -10,12 +9,18 @@ describe("api adapter", () => {
       );
     });
 
-    test("Bad or non-JSON response throws FetchError", async () => {
-      const query = queryBuilder({ format: "text" });
+    test("Reads valid json", async () => {
       const params = {
-        endPoint: `/cards/random${query}`
+        endPoint: `/cards/random`
       };
-      await expect(Promise.resolve(fetchApi(params))).rejects.toThrow();
+      await expect(Promise.resolve(fetchApi(params))).resolves;
+    });
+
+    test("Reads valid text", async () => {
+      const params = {
+        endPoint: `/cards/random`
+      };
+      await expect(Promise.resolve(fetchApi(params))).resolves;
     });
   });
 });

@@ -1,22 +1,32 @@
 import { ROOT, defaultHeaders, timeoutMS } from "./config";
-import { timeout } from "../utils";
+import {
+  timeout,
+  readContentType,
+  isObjectWithKeys,
+  keyWithValueExists
+} from "../utils";
+import { ApiError } from "../errors";
+import "regenerator-runtime/runtime";
 
 const handleServerResponse = async response => {
-  const json = await parseResponse(response);
-  const { object, code, status, details } = json;
-  if (object === "error") {
-    throw new Error(`${status} - ${code}: ${details}`);
-  } else {
-    return json;
+  const result = await parseResponse(response);
+  if (keyWithValueExists({ object: result, key: "object", value: "error" })) {
+    throw new ApiError(result);
   }
+
+  return result;
 };
 
 const parseResponse = async response => {
-  // console.log("Inside parseResponse");
   try {
-    return await response.json();
+    const contentType = readContentType(response.headers);
+    if (contentType.includes("text")) {
+      return await response.text();
+    }
+    if (contentType.includes("json")) {
+      return await response.json();
+    }
   } catch (error) {
-    // console.log(error);
     throw error;
   }
 };
@@ -37,7 +47,7 @@ export const fetchApi = async ({
     }
   };
 
-  if (Object.keys(payload).length > 0) {
+  if (isObjectWithKeys(payload)) {
     options.body = JSON.stringify(payload);
   }
 

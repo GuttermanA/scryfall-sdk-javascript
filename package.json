@@ -2,9 +2,12 @@
   "name": "scryfall-sdk-javascript",
   "version": "1.0.0",
   "description": "JavaScript SDK to work with Magic the Gathering API at scryfall.com",
-  "main": "app.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "jest"
+    "build": "babel src -d dist",
+    "test": "jest",
+    "start": "yarn build && nodemon dist/index.js",
+    "test:debug": "node --inspect node_modules/.bin/jest --runInBand"
   },
   "jest": {
     "transform": {
@@ -15,12 +18,19 @@
       "./setupJest.js"
     ]
   },
+  "nodemonConfig": {
+    "ignore": [
+      "test/*"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GuttermanA/scryfall-sdk-javascript.git"
   },
   "keywords": [
-    "SDK"
+    "SDK",
+    "Scryfall",
+    "Magic the Gathering"
   ],
   "author": "Alexander Gutterman",
   "license": "MIT",
@@ -31,12 +41,14 @@
   "devDependencies": {
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "babel-jest": "^24.9.0",
-    "jest": "^24.9.0"
+    "jest": "^24.9.0",
+    "nodemon": "^1.19.1"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.4.4",
+    "core-js": "^3.2.1",
     "node-fetch": "^2.6.0"
   }
 }
