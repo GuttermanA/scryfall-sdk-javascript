@@ -5,4 +5,4 @@ export const defaultHeaders = {
   Accepts: "application/json"
 };
 
-export const timeoutMS = 100;
+export const timeoutMS = 0;

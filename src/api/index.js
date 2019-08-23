@@ -12,15 +12,12 @@ const handleServerResponse = async response => {
 };
 
 const parseResponse = async response => {
+  // console.log("Inside parseResponse");
   try {
-    const json = await response.json();
-    return json;
+    return await response.json();
   } catch (error) {
-    if (error instanceof SyntaxError) {
-      throw new SyntaxError(error);
-    } else {
-      throw new Error(error);
-    }
+    // console.log(error);
+    throw error;
   }
 };
 

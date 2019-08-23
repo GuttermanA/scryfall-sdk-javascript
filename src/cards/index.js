@@ -2,7 +2,7 @@ import { fetchApi } from "../api";
 
 const subDomain = "/cards";
 
-class Cards {
+export default class Cards {
   // /cards
   all() {}
 
