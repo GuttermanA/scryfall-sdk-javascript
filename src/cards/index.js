@@ -1,41 +1,57 @@
 import { fetchApi } from "../api";
+import QueryBuilder from "../queryBuilder";
 
 const subDomain = "/cards";
 
 export default class Cards {
   // /cards
-  static all() {}
+  static async all() {}
 
   // /cards/search
-  static search() {}
+  static async search() {}
 
   // /cards/named
-  static named() {}
+  static async named(name, options = {}) {
+    const { exact, fuzzy, set, format, face, version, pretty } = options;
+    const queryString = new QueryBuilder(name, {
+      exact,
+      fuzzy,
+      set,
+      format,
+      face,
+      version,
+      pretty
+    }).urlString;
+
+    return await fetchApi({
+      endPoint: `${subDomain}/named${queryString}`
+    });
+  }
 
   // /cards/autocomplete
-  static autocomplete() {}
+  static async autocomplete() {}
 
   // /cards/random
-  static random() {}
+  static async random() {}
 
   // /cards/collection
-  static collection() {}
+  static async collection() {}
 
   // /cards/:code/:number(/:lang)
-  static singleCard() {}
+  static async singleCard() {}
 
   // /cards/multiverse/:id
-  static singleCard() {}
+  static async singleCard() {}
 
   // /cards/mtgo/:id
-  static singleCard() {}
+  static async singleCard() {}
 
   // /cards/arena/:id
-  static singleCard() {}
+  static async singleCard() {}
 
   // /cards/tcgplayer/:id
-  static singleCard() {}
+  static async singleCard() {}
 
   // /cards/scryfall/:id
-  static singleCard() {}
+  static async singleCard() {}
 }

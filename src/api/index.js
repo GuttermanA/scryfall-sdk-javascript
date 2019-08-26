@@ -35,12 +35,10 @@ export const fetchApi = async ({
   endPoint,
   payload = {},
   method = "GET",
-  headers = {},
-  body
+  headers = {}
 }) => {
   const options = {
     method,
-    body,
     headers: {
       ...defaultHeaders,
       ...headers

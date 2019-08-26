@@ -14,13 +14,11 @@ export const queryBuilder = ({ query = {}, options = {} }) => {
   }
 
   if (isObjectWithKeys(query)) {
-    params.append("")
+    params.append("");
   }
 
   return "?".concat(params.toString());
 };
-
-export const searchStringBuilder = ({ name, color, identity, type, oracle, mana, power, toughness, loyalty, is, include, rarity, in, set, number, block, st, format, usd, tix, eur, art, flavor, watermark, boarder, frame, game, not, language })
 
 export const readContentType = headers => {
   return headers.get("content-type");
@@ -40,4 +38,8 @@ export const keyExists = (object, key) => {
 
 export const keyWithValueExists = ({ object, key, value }) => {
   return isObject(object) && keyExists(object, key) && object[key] === value;
+};
+
+export const isLastIndex = (array, index) => {
+  return Array.isArray(array) && array.length > 0 && index === array.length - 1;
 };
