@@ -43,3 +43,18 @@ export const keyWithValueExists = ({ object, key, value }) => {
 export const isLastIndex = (array, index) => {
   return Array.isArray(array) && array.length > 0 && index === array.length - 1;
 };
+
+export const filterObjectKeys = (object, validKeysArray) => {
+  const result = {};
+
+  if (isObjectWithKeys(object)) {
+    for (const key in object) {
+      validKeysArray.includes(key);
+      result[keys] = object[key];
+    }
+  }
+
+  return result;
+};
+
+filterObjectKeys();

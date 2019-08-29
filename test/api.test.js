@@ -1,5 +1,6 @@
 import { fetchApi } from "../src/api";
 import { queryBuilder, isObjectWithKeys } from "../src/utils";
+import QueryBuilder from "../src/queryBuilder";
 
 describe("api adapter", () => {
   describe("#fetchApi()", () => {

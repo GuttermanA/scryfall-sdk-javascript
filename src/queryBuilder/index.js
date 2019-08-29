@@ -1,11 +1,10 @@
-import { isObjectWithKeys, isLastIndex } from "../utls";
+import { isObjectWithKeys, isLastIndex, filterObjectKeys } from "../utls";
 
 export default class QueryBuilder {
-  constructor({ search, options }) {
-    this.searchString = this.searchBuilder(search);
-    this.optionsString = this.optionsBuilder(options);
+  constructor({ searchParams, optionParams }) {
+    this.searchString = this.searchBuilder(searchParams);
+    this.optionsString = this.optionsBuilder(optionsParams);
     this.urlString = build();
-    this.operators = ["=", ">"];
   }
 
   search({
@@ -41,6 +40,7 @@ export default class QueryBuilder {
 
   optionsBuilder(params) {
     const builder = new URLSearchParams("");
+    search();
 
     if (isObjectWithKeys(options)) {
       for (const name in queryObject) {
