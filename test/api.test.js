@@ -30,7 +30,8 @@ describe("api adapter", () => {
 
     describe("Text", () => {
       test("Resolves valid when requesting text", async () => {
-        const query = queryBuilder({}, { format: "text" });
+        const query = new QueryBuilder({ optionParams: { format: "text" } })
+          .urlString;
         const params = {
           endPoint: `/cards/random${query}`
         };
@@ -38,7 +39,8 @@ describe("api adapter", () => {
       });
 
       test("Returns a String", async () => {
-        const query = queryBuilder({}, { format: "text" });
+        const query = new QueryBuilder({ optionParams: { format: "text" } })
+          .urlString;
         const params = {
           endPoint: `/cards/random${query}`
         };
@@ -50,7 +52,8 @@ describe("api adapter", () => {
 
     describe("CSV", () => {
       test("Resolves valid when requesting text", async () => {
-        const query = queryBuilder({ format: "csv" });
+        const query = new QueryBuilder({ optionParams: { format: "csv" } })
+          .urlString;
         const params = {
           endPoint: `/cards/search${query}`
         };

@@ -1,10 +1,10 @@
-import { isObjectWithKeys, isLastIndex, filterObjectKeys } from "../utls";
+import { isObjectWithKeys, isLastIndex, filterObjectKeys } from "../utils";
 
 export default class QueryBuilder {
   constructor({ searchParams, optionParams }) {
     this.searchString = this.searchBuilder(searchParams);
-    this.optionsString = this.optionsBuilder(optionsParams);
-    this.urlString = build();
+    this.optionsString = this.optionsBuilder(optionParams);
+    this.urlString = this.build();
   }
 
   search({
@@ -38,13 +38,27 @@ export default class QueryBuilder {
     language
   }) {}
 
+  searchBuilder(params) {
+    const result = "";
+    if (params) {
+      if (isObjectWithKeys(params)) {
+        for (const { field, query } in params) {
+          result.concat(query);
+        }
+      } else {
+        throw new Error("Params must be an object containing key value pairs");
+      }
+    }
+
+    return result;
+  }
+
   optionsBuilder(params) {
     const builder = new URLSearchParams("");
-    search();
 
-    if (isObjectWithKeys(options)) {
-      for (const name in queryObject) {
-        params.append(name, queryObject[name]);
+    if (isObjectWithKeys(params)) {
+      for (const name in params) {
+        builder.append(name, params[name]);
       }
     } else {
       throw new Error("Params must be an object containing key value pairs");
@@ -54,9 +68,15 @@ export default class QueryBuilder {
   }
 
   build() {
-    const builder = new URLSearchParams(this.optionsString).append(
-      this.searchString
-    );
+    const builder =
+      this.optionsString.length > "0"
+        ? new URLSearchParams(this.optionsString)
+        : new URLSearchParams("");
+
+    this.searchString.length > "0" && builder.append("q", this.searchString);
+
+    debugger;
+
     return "?".concat(builder.toString());
   }
 
@@ -64,23 +84,5 @@ export default class QueryBuilder {
     const query = field === "name" ? value : `${queryField}${operator}${value}`;
     const param = {};
     return (param[field] = query);
-  }
-
-  searchBuilder(params) {
-    const result = "";
-    if (isObjectWithKeys(params)) {
-      for (const { field, query } in params) {
-        result.concat(query);
-      }
-      // Object.entries.forEach(([field, query]) => {
-      //   result.concat(query);
-      //   if (index !== array.length - 1) {
-      //     result.concat("+");
-      //   }
-      // });
-    } else {
-      throw new Error("Params must be an object containing key value pairs");
-    }
-    return result;
   }
 }

@@ -14,8 +14,7 @@ export default class Cards extends QueryBuilder {
     const optionParams = options
       ? filterObjectKeys(options, optionParams)
       : null;
-    const queryString = new QueryBuilder({ searchParams: null, optionParams })
-      .urlString;
+    const queryString = new QueryBuilder({ optionParams }).urlString;
 
     return await fetchApi({
       endPoint: `${subDomain}${queryString}`
