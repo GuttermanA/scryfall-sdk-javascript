@@ -1,4 +1,4 @@
-import { isObjectWithKeys, isLastIndex, filterObjectKeys } from "../utils";
+import { isObjectWithKeys } from "../utils";
 
 export default class QueryBuilder {
   constructor({ searchParams, optionParams }) {
@@ -6,37 +6,6 @@ export default class QueryBuilder {
     this.optionsString = this.optionsBuilder(optionParams);
     this.urlString = this.build();
   }
-
-  search({
-    name,
-    color,
-    identity,
-    type,
-    oracle,
-    mana,
-    power,
-    toughness,
-    loyalty,
-    is,
-    include,
-    rarity,
-    inn,
-    set,
-    number,
-    block,
-    format,
-    usd,
-    tix,
-    eur,
-    art,
-    flavor,
-    watermark,
-    boarder,
-    frame,
-    game,
-    not,
-    language
-  }) {}
 
   searchBuilder(params) {
     if (!params) {
