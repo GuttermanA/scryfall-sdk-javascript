@@ -39,21 +39,28 @@ export default class QueryBuilder {
   }) {}
 
   searchBuilder(params) {
+    if (!params) {
+      return null;
+    }
+
     const result = "";
-    if (params) {
-      if (isObjectWithKeys(params)) {
-        for (const { field, query } in params) {
-          result.concat(query);
-        }
-      } else {
-        throw new Error("Params must be an object containing key value pairs");
+
+    if (isObjectWithKeys(params)) {
+      for (const { field, query } in params) {
+        result.concat(query);
       }
+    } else {
+      throw new Error("Params must be an object containing key value pairs");
     }
 
     return result;
   }
 
   optionsBuilder(params) {
+    if (!params) {
+      return null;
+    }
+
     const builder = new URLSearchParams("");
 
     if (isObjectWithKeys(params)) {
@@ -68,14 +75,11 @@ export default class QueryBuilder {
   }
 
   build() {
-    const builder =
-      this.optionsString.length > "0"
-        ? new URLSearchParams(this.optionsString)
-        : new URLSearchParams("");
+    const builder = this.optionsString
+      ? new URLSearchParams(this.optionsString)
+      : new URLSearchParams("");
 
-    this.searchString.length > "0" && builder.append("q", this.searchString);
-
-    debugger;
+    this.searchString && builder.append("q", this.searchString);
 
     return "?".concat(builder.toString());
   }
