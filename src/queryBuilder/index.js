@@ -7,12 +7,7 @@ export default class QueryBuilder {
     this.urlString = this.build();
   }
 
-  static searchString = null;
-  static optionsString = null;
-  static urlString = null;
-  static subDomain = null;
-
-  static searchBuilder(params) {
+  searchBuilder(params) {
     if (!params) {
       return null;
     }
@@ -30,7 +25,7 @@ export default class QueryBuilder {
     return result;
   }
 
-  static optionsBuilder(params) {
+  optionsBuilder(params) {
     if (!params) {
       return null;
     }
@@ -48,7 +43,7 @@ export default class QueryBuilder {
     return builder.toString();
   }
 
-  static build() {
+  build() {
     const builder = this.optionsString
       ? new URLSearchParams(this.optionsString)
       : new URLSearchParams("");
@@ -58,7 +53,7 @@ export default class QueryBuilder {
     return "?".concat(builder.toString());
   }
 
-  static paramBuilder(field, value, operator = "=") {
+  paramBuilder(field, value, operator = "=") {
     const query = field === "name" ? value : `${queryField}${operator}${value}`;
     const param = {};
     return (param[field] = query);
