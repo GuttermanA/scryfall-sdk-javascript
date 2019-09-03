@@ -1,74 +1,29 @@
-import { fetchApi } from "../api";
+import { fetchApi } from "../../api";
+import {
+  AllParams,
+  SearchParams,
+  NamedParams,
+  AutoCompleteParams,
+  RandomParams,
+  CardIdentifier,
+  IdParams
+} from "./interfaces";
 import { subDomain } from "./config";
-import { isObjectWithKeys, isLastIndex, filterObjectKeys } from "../utls";
-import QueryBuilder from "../queryBuilder";
+import QueryBuilder from "../../queryBuilder";
 
-export default class Cards extends QueryBuilder {
-  static optionParams = optionParams;
-  static searchParams = searchParams;
-
+export default class Cards {
   // /cards
-  static async all(options) {
-    const validOptions = ["page", "format", "pretty"];
-
-    const optionParams = options
-      ? filterObjectKeys(options, optionParams)
-      : null;
-    const queryString = new QueryBuilder({ optionParams }).urlString;
-
+  static async all(optionParams: AllParams) {
+    const queryString = new QueryBuilder({ options: optionParams }).urlString;
     return await fetchApi({
       endPoint: `${subDomain}${queryString}`
     });
   }
 
   // /cards/search
-  static async search(params, options) {
-    const validOptions = [
-      "unique",
-      "order",
-      "dir",
-      "include_extras",
-      "include_multiligual",
-      "page",
-      "format"
-    ];
-    const validSearch = [
-      "name",
-      "color",
-      "identity",
-      "type",
-      "oracle",
-      "mana",
-      "power",
-      "toughness",
-      "loyalty",
-      "is",
-      "include",
-      "rarity",
-      "in",
-      "set",
-      "number",
-      "block",
-      "format",
-      "usd",
-      "tix",
-      "eur",
-      "art",
-      "flavor",
-      "watermark",
-      "boarder",
-      "frame",
-      "game",
-      "not",
-      "language"
-    ];
-
-    const optionParams = options
-      ? filterObjectKeys(options, optionParams)
-      : null;
-    const searchParams = params ? filterObjectKeys(params, validSearch) : null;
-    const queryString = new QueryBuilder({ searchParams, optionParams })
-      .urlString;
+  static async search(params: SearchParams) {
+    const { q, ...options } = params;
+    const queryString = new QueryBuilder({ search: q, options }).urlString;
 
     return await fetchApi({
       endPoint: `${subDomain}/search${queryString}`
@@ -76,20 +31,8 @@ export default class Cards extends QueryBuilder {
   }
 
   // /cards/named
-  static async named(name, options) {
-    const validOptions = [
-      "exact",
-      "fuzzy",
-      "set",
-      "format",
-      "face",
-      "version",
-      "pretty"
-    ];
-    const optionParams = options
-      ? filterObjectKeys(options, optionParams)
-      : null;
-    const queryString = new QueryBuilder({ searchParams: name, optionParams })
+  static async named(name: string, options: NamedParams) {
+    const queryString = new QueryBuilder({ search: { name }, options })
       .urlString;
 
     return await fetchApi({
@@ -110,17 +53,17 @@ export default class Cards extends QueryBuilder {
   static async singleCard() {}
 
   // /cards/multiverse/:id
-  static async singleCard() {}
+  static async multiverse() {}
 
   // /cards/mtgo/:id
-  static async singleCard() {}
+  static async mtgo() {}
 
   // /cards/arena/:id
-  static async singleCard() {}
+  static async arena() {}
 
   // /cards/tcgplayer/:id
-  static async singleCard() {}
+  static async tcgplayer() {}
 
   // /cards/scryfall/:id
-  static async singleCard() {}
+  static async scryfall() {}
 }
